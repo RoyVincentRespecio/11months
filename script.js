@@ -4,33 +4,30 @@
 
 function unlockLove(){
 
-    const password =
-    document.getElementById("password").value;
+    const password = document.getElementById("password").value;
 
-    const correctPassword =
-    "09052025";
+    const correctPassword = "09052025";
 
 
     if(password === correctPassword){
 
-        const lock =
-        document.getElementById("lockScreen");
 
-        lock.style.opacity="0";
+        const lock = document.getElementById("lockScreen");
+
+        lock.style.opacity = "0";
 
 
         setTimeout(()=>{
 
-            lock.style.display="none";
+
+            lock.style.display = "none";
 
 
             // START MUSIC
 
-            const music =
-            document.getElementById("bgMusic");
+            const music = document.getElementById("bgMusic");
 
             music.volume = 0.5;
-
 
             music.play().catch(()=>{
 
@@ -42,18 +39,18 @@ function unlockLove(){
 
             // NETFLIX INTRO
 
-            const intro =
-            document.getElementById("netflixIntro");
+            const intro = document.getElementById("netflixIntro");
 
 
             if(intro){
 
-                intro.style.display="flex";
+
+                intro.style.display = "flex";
 
 
                 setTimeout(()=>{
 
-                    intro.style.opacity="0";
+                    intro.style.opacity = "0";
 
                 },2500);
 
@@ -61,11 +58,13 @@ function unlockLove(){
 
                 setTimeout(()=>{
 
-                    intro.style.display="none";
+                    intro.style.display = "none";
 
                 },4000);
 
+
             }
+
 
 
         },800);
@@ -81,12 +80,7 @@ function unlockLove(){
 
     }
 
-
 }
-
-
-
-
 
 
 
@@ -96,9 +90,7 @@ function unlockLove(){
 // MUSIC BUTTON
 // =========================
 
-const music =
-document.getElementById("bgMusic");
-
+const music = document.getElementById("bgMusic");
 
 
 function startMusic(){
@@ -110,16 +102,11 @@ function startMusic(){
     music.play();
 
 
-
     document.querySelector(".music-btn").innerHTML =
     "🎶 Playing";
 
 
 }
-
-
-
-
 
 
 
@@ -133,8 +120,7 @@ function startMusic(){
 let currentScene = 0;
 
 
-const scenes =
-document.querySelectorAll(".scene");
+const scenes = document.querySelectorAll(".scene");
 
 
 
@@ -144,22 +130,22 @@ function nextScene(){
     if(currentScene < scenes.length - 1){
 
 
-        scenes[currentScene]
-        .classList.remove("active");
-
+        scenes[currentScene].classList.remove("active");
 
 
         currentScene++;
 
 
-
-        scenes[currentScene]
-        .classList.add("active");
+        scenes[currentScene].classList.add("active");
 
 
 
         if(currentScene === 3){
 
+
+            document.getElementById("typing").innerHTML="";
+
+            letterIndex = 0;
 
             setTimeout(typeLetter,500);
 
@@ -171,9 +157,6 @@ function nextScene(){
 
 
 }
-
-
-
 
 
 
@@ -189,45 +172,19 @@ function previousScene(){
     if(currentScene > 0){
 
 
-        scenes[currentScene]
-        .classList.remove("active");
-
+        scenes[currentScene].classList.remove("active");
 
 
         currentScene--;
 
 
-
-        scenes[currentScene]
-        .classList.add("active");
-
-
-
-        // Reset letter animation
-
-        if(currentScene === 3){
-
-
-            document.getElementById("typing").innerHTML = "";
-
-
-            letterIndex = 0;
-
-
-            setTimeout(typeLetter,500);
-
-
-        }
+        scenes[currentScene].classList.add("active");
 
 
     }
 
 
 }
-
-
-
-
 
 
 
@@ -302,33 +259,25 @@ let letterIndex = 0;
 function typeLetter(){
 
 
-    const text =
-    document.getElementById("typing");
-
+    const text = document.getElementById("typing");
 
 
     if(letterIndex < message.length){
 
 
-        let char =
-        message.charAt(letterIndex);
+        let char = message.charAt(letterIndex);
 
 
 
         if(char === "\n"){
 
-
             text.innerHTML += "<br>";
-
 
         }else{
 
-
             text.innerHTML += char;
 
-
         }
-
 
 
         letterIndex++;
@@ -347,11 +296,8 @@ function typeLetter(){
 
 
 
-
-
-
 // =========================
-// 5 BACKGROUND VIDEOS LOOP
+// BACKGROUND VIDEOS LOOP
 // =========================
 
 
@@ -373,68 +319,86 @@ const videoList = [
 let currentVideo = 0;
 
 
-const bgVideo =
-document.getElementById("bgVideo");
+const bgVideo = document.getElementById("bgVideo");
 
-
-const videoSource =
-document.getElementById("videoSource");
+const videoSource = document.getElementById("videoSource");
 
 
 
 if(bgVideo){
 
 
+
+    bgVideo.muted = true;
+
+
+
     bgVideo.addEventListener("ended",()=>{
 
 
-        bgVideo.classList.add("fade-out");
+
+        currentVideo++;
 
 
 
-        setTimeout(()=>{
+        if(currentVideo >= videoList.length){
 
+            currentVideo = 0;
 
-            currentVideo++;
-
-
-
-            if(currentVideo >= videoList.length){
-
-
-                currentVideo = 0;
-
-
-            }
+        }
 
 
 
-            videoSource.src =
-            videoList[currentVideo];
+        videoSource.src = videoList[currentVideo];
 
 
-
-            bgVideo.load();
-
-
-            bgVideo.play();
+        bgVideo.load();
 
 
-
-            bgVideo.classList.remove("fade-out");
-
-
-
-        },1500);
+        bgVideo.play();
 
 
 
     });
 
 
+
 }
 
 
+
+
+
+// =========================
+// ANDROID CHROME VIDEO FIX
+// =========================
+
+
+window.addEventListener("load",()=>{
+
+
+    const video = document.getElementById("bgVideo");
+
+
+    if(video){
+
+
+        video.muted = true;
+
+
+        video.play().catch(()=>{
+
+
+            console.log("Autoplay blocked");
+
+
+        });
+
+
+    }
+
+
+});
 
 
 
@@ -454,51 +418,5 @@ function showLove(){
     "❤️ Royskiee & Renziee Forever ❤️"
     );
 
-// MOBILE VIDEO FIX
 
-window.addEventListener("load",()=>{
-
-    const bgVideo = document.getElementById("bgVideo");
-
-    if(bgVideo){
-
-        bgVideo.muted = true;
-
-        bgVideo.play().catch(()=>{
-
-            console.log("Mobile browser blocked autoplay");
-
-        });
-
-    }
-
-});
 }
-
-// ANDROID CHROME VIDEO AUTOPLAY FIX
-
-document.addEventListener("DOMContentLoaded", ()=>{
-
-    const video = document.getElementById("bgVideo");
-
-    if(video){
-
-        video.muted = true;
-
-        video.setAttribute("muted", "");
-
-        video.play()
-        .then(()=>{
-
-            console.log("Video playing");
-
-        })
-        .catch(error=>{
-
-            console.log("Video blocked:", error);
-
-        });
-
-    }
-
-});
