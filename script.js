@@ -300,17 +300,12 @@ function typeLetter(){
 // BACKGROUND VIDEOS LOOP
 // =========================
 
-
 const videoList = [
 
     "video/love1.mp4",
-
     "video/love2.mp4",
-
     "video/love3.mp4",
-
     "video/love4.mp4",
-
     "video/love5.mp4"
 
 ];
@@ -321,24 +316,19 @@ let currentVideo = 0;
 
 const bgVideo = document.getElementById("bgVideo");
 
-const videoSource = document.getElementById("videoSource");
-
 
 
 if(bgVideo){
-
 
 
     bgVideo.muted = true;
 
 
 
-    bgVideo.addEventListener("ended",()=>{
-
+    bgVideo.addEventListener("ended", function(){
 
 
         currentVideo++;
-
 
 
         if(currentVideo >= videoList.length){
@@ -349,7 +339,9 @@ if(bgVideo){
 
 
 
-        videoSource.src = videoList[currentVideo];
+        // change video directly
+
+        bgVideo.src = videoList[currentVideo];
 
 
         bgVideo.load();
@@ -363,8 +355,13 @@ if(bgVideo){
 
 
 
-}
+    // start first video
 
+    bgVideo.play();
+
+
+
+}
 
 
 
