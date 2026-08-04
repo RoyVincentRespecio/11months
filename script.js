@@ -454,5 +454,51 @@ function showLove(){
     "❤️ Royskiee & Renziee Forever ❤️"
     );
 
+// MOBILE VIDEO FIX
 
+window.addEventListener("load",()=>{
+
+    const bgVideo = document.getElementById("bgVideo");
+
+    if(bgVideo){
+
+        bgVideo.muted = true;
+
+        bgVideo.play().catch(()=>{
+
+            console.log("Mobile browser blocked autoplay");
+
+        });
+
+    }
+
+});
 }
+
+// ANDROID CHROME VIDEO AUTOPLAY FIX
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+    const video = document.getElementById("bgVideo");
+
+    if(video){
+
+        video.muted = true;
+
+        video.setAttribute("muted", "");
+
+        video.play()
+        .then(()=>{
+
+            console.log("Video playing");
+
+        })
+        .catch(error=>{
+
+            console.log("Video blocked:", error);
+
+        });
+
+    }
+
+});
